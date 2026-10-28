@@ -123,7 +123,7 @@ services:
       - postea-config:/config/
       - postea-uploads:/uploads/
     ports:
-      - '127.0.0.1:4007:5000'
+      - '172.17.0.1:4007:5000'
     networks:
       - postea-network
       - temporal-network
@@ -258,23 +258,6 @@ services:
     ports:
       - '127.0.0.1:8080:8080'
 
-  # HTTPS reverse proxy with automatic Let's Encrypt certificates
-  caddy:
-    container_name: postea-caddy
-    image: caddy:2-alpine
-    restart: always
-    depends_on:
-      - postea
-    command: caddy reverse-proxy --from posteo.clubemkt.digital --to postea:5000
-    ports:
-      - '80:80'
-      - '443:443'
-    networks:
-      - postea-network
-    volumes:
-      - postea-caddy-data:/data
-      - postea-caddy-config:/config
-
 volumes:
   postea-config:
     external: false
@@ -282,10 +265,6 @@ volumes:
     external: false
   postgres-volume:
   postea-redis-data:
-    external: false
-  postea-caddy-data:
-    external: false
-  postea-caddy-config:
     external: false
 
 networks:
