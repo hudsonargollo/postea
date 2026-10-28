@@ -5,9 +5,9 @@ services:
     restart: always
     environment:
       # === Required Settings
-      MAIN_URL: 'http://localhost:4007'
-      FRONTEND_URL: 'http://localhost:4007'
-      NEXT_PUBLIC_BACKEND_URL: 'http://localhost:4007/api'
+      MAIN_URL: 'https://posteo.clubemkt.digital'
+      FRONTEND_URL: 'https://posteo.clubemkt.digital'
+      NEXT_PUBLIC_BACKEND_URL: 'https://posteo.clubemkt.digital/api'
       JWT_SECRET: 'random string that is unique to every install - just type random characters here!'
       DATABASE_URL: 'postgresql://postea-user:postea-password@postea-postgres:5432/postea-db-local'
       REDIS_URL: 'redis://postea-redis:6379'
@@ -123,7 +123,7 @@ services:
       - postea-config:/config/
       - postea-uploads:/uploads/
     ports:
-      - '4007:5000'
+      - '127.0.0.1:4007:5000'
     networks:
       - postea-network
       - temporal-network
@@ -169,7 +169,7 @@ services:
     pull_policy: always
     container_name: spotlight
     ports:
-      - 8969:8969/tcp
+      - '127.0.0.1:8969:8969/tcp'
     image: ghcr.io/getsentry/spotlight:latest
     networks:
       - postea-network
@@ -211,7 +211,7 @@ services:
   temporal:
     container_name: temporal
     ports:
-      - '7233:7233'
+      - '127.0.0.1:7233:7233'
     image: temporalio/auto-setup:1.28.1
     depends_on:
       - temporal-postgresql
@@ -256,19 +256,36 @@ services:
     networks:
       - temporal-network
     ports:
-      - '8080:8080'
+      - '127.0.0.1:8080:8080'
+
+  # HTTPS reverse proxy with automatic Let's Encrypt certificates
+  caddy:
+    container_name: postea-caddy
+    image: caddy:2-alpine
+    restart: always
+    depends_on:
+      - postea
+    command: caddy reverse-proxy --from posteo.clubemkt.digital --to postea:5000
+    ports:
+      - '80:80'
+      - '443:443'
+    networks:
+      - postea-network
+    volumes:
+      - postea-caddy-data:/data
+      - postea-caddy-config:/config
 
 volumes:
-  postgres-volume:
-    external: false
-
-  postea-redis-data:
-    external: false
-
   postea-config:
     external: false
-
   postea-uploads:
+    external: false
+  postgres-volume:
+  postea-redis-data:
+    external: false
+  postea-caddy-data:
+    external: false
+  postea-caddy-config:
     external: false
 
 networks:
