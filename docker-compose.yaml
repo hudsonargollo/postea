@@ -8,7 +8,7 @@ services:
       MAIN_URL: 'https://posteo.clubemkt.digital'
       FRONTEND_URL: 'https://posteo.clubemkt.digital'
       NEXT_PUBLIC_BACKEND_URL: 'https://posteo.clubemkt.digital/api'
-      JWT_SECRET: 'random string that is unique to every install - just type random characters here!'
+      JWT_SECRET: ${JWT_SECRET}
       DATABASE_URL: 'postgresql://postea-user:postea-password@postea-postgres:5432/postea-db-local'
       REDIS_URL: 'redis://postea-redis:6379'
       BACKEND_INTERNAL_URL: 'http://localhost:3000'
