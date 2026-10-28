@@ -106,14 +106,14 @@ export const AddProviderButton: FC<{
   );
 };
 
-export const UrlModal: FC<{
+const UrlModal: FC<{
   gotoUrl(url: string): void;
 }> = (props) => {
   const { gotoUrl } = props;
   const methods = useForm({
     mode: 'onChange',
   });
-
+  const modals = useModals();
   const t = useT();
 
   const submit = useCallback(async (data: FieldValues) => {
@@ -123,7 +123,7 @@ export const UrlModal: FC<{
     <div className="rounded-[4px] border border-customColor6 bg-sixth px-[16px] pb-[16px] relative">
       <TopTitle title={`Instance URL`} />
       <button
-        onClick={close}
+        onClick={() => modals.closeCurrent()}
         className="outline-none absolute end-[20px] top-[20px] mantine-UnstyledButton-root mantine-ActionIcon-root hover:bg-tableBorder cursor-pointer mantine-Modal-close mantine-1dcetaa"
         type="button"
       >
@@ -167,12 +167,11 @@ export const CustomVariables: FC<{
     type: 'text' | 'password';
     hint?: string;
   }>;
-  close?: () => void;
   identifier: string;
   gotoUrl(url: string): void;
   onboarding?: boolean;
 }> = (props) => {
-  const { close, gotoUrl, identifier, variables, onboarding } = props;
+  const { gotoUrl, identifier, variables, onboarding } = props;
   const fetch = useFetch();
   const modals = useModals();
   const schema = useMemo(() => {
@@ -682,7 +681,7 @@ export const AddProviderComponent: FC<{
   const t = useT();
 
   return (
-    <div className="w-full flex flex-col gap-[20px] rounded-[4px] relative]">
+    <div className="w-full flex flex-col gap-[20px] rounded-[4px] relative">
       <div className="flex flex-col">
         <div
           className={clsx(
