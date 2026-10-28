@@ -132,7 +132,7 @@ export class CopilotController {
     @Param('thread') threadId: string
   ): Promise<any> {
     const mastra = await this._mastraService.mastra();
-    const memory = await mastra.getAgent('postiz').getMemory();
+    const memory = await mastra.getAgent('postea').getMemory();
     try {
       return await memory.recall({
         resourceId: organization.id,
@@ -148,7 +148,7 @@ export class CopilotController {
   @CheckPolicies([AuthorizationActions.Create, Sections.AI])
   async getList(@GetOrgFromRequest() organization: Organization) {
     const mastra = await this._mastraService.mastra();
-    const memory = await mastra.getAgent('postiz').getMemory();
+    const memory = await mastra.getAgent('postea').getMemory();
     const list = await memory.listThreads({
       filter: { resourceId: organization.id },
       perPage: 100000,

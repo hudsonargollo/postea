@@ -54,7 +54,7 @@ export const AgentChat: FC = () => {
       runtimeUrl={backendUrl + '/copilot/agent'}
       useSingleEndpoint={true}
       showDevConsole={false}
-      agent="postiz"
+      agent="postea"
       properties={{
         integrations: properties,
       }}
@@ -75,7 +75,7 @@ export const AgentChat: FC = () => {
             className="w-full h-full"
             labels={{
               title: t('your_assistant', 'Your Assistant'),
-              initial: t('agent_welcome_message', `Hello, I am your Postiz agent 🙌🏻.
+              initial: t('agent_welcome_message', `Hello, I am your Postea agent 🙌🏻.
               
 I can schedule a post or multiple posts to multiple channels and generate pictures and videos.
 

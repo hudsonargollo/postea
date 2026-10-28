@@ -1,6 +1,6 @@
 {
-	"name": "Postiz Dev Container",
-	"image": "localhost/postiz-devcontainer",
+	"name": "Postea Dev Container",
+	"image": "localhost/postea-devcontainer",
 	"features": {},
 	"customizations": {
 		"vscode": {

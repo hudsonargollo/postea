@@ -2,24 +2,24 @@
 
 ## Introduction
 
-The Postiz app is committed to ensuring the security and integrity of our users' data. This security policy outlines our procedures for handling security vulnerabilities and our disclosure policy.
+The Postea app is committed to ensuring the security and integrity of our users' data. This security policy outlines our procedures for handling security vulnerabilities and our disclosure policy.
 
 ## Scope
 
-We, at Postiz (gitroomhq), cover the following scopes for vulnerability disclosures:
+We, at Postea (gitroomhq), cover the following scopes for vulnerability disclosures:
 
-- The core repository for `postiz-app` (github.com/gitroomhq/postiz-app)
-- All `gitroomhq` repositories that are official components, tooling, or integrations of Postiz
-- Official Postiz container images published under `gitroomhq` on GHCR
-- Official Postiz CLI tools and NPM packages (NPM org: @postiz)
-- Postiz-Cloud related infrastructure & services (API, Frontend, Configurations etc.)
-- Plugins for Postiz maintained within the `gitroomhq` organization
+- The core repository for `postea-app` (github.com/hudsonargollo/postea)
+- All `gitroomhq` repositories that are official components, tooling, or integrations of Postea
+- Official Postea container images published under `gitroomhq` on GHCR
+- Official Postea CLI tools and NPM packages (NPM org: @postea)
+- Postea-Cloud related infrastructure & services (API, Frontend, Configurations etc.)
+- Plugins for Postea maintained within the `gitroomhq` organization
 
 Vulnerabilities in third-party dependencies or user-hosted infrastructure are outside of this scope.
 
 ## Supported Versions
 
-This project currently only supports the latest release. We recommend that users always use the latest version of the Postiz app to ensure they have the latest security patches.
+This project currently only supports the latest release. We recommend that users always use the latest version of the Postea app to ensure they have the latest security patches.
 *CVE IDs will only be assigned to vulnerabilities affecting currently supported versions.*
 
 ## What We Consider a Vulnerability
@@ -29,13 +29,13 @@ We consider an issue a vulnerability when it is a weakness in an in-scope, suppo
 **In scope:**
 
 - A demonstrable security impact, privilege escalation, data exposure, integrity violation, or loss of availability, in a supported product.
-- Insecure default configurations shipped by Postiz.
+- Insecure default configurations shipped by Postea.
 
 **Not a vulnerability:**
 
 - Reports with no demonstrable security impact, or theoretical issues with no working proof of concept.
 - Misconfiguration or non-default changes on a self-hosted instance (exposed database, missing TLS, weak operator-set secrets); these fall outside [Scope](#scope).
-- Third-party dependency issues, unless Postiz's own use of the dependency is independently exploitable. Updating a dependency is not itself a vulnerability.
+- Third-party dependency issues, unless Postea's own use of the dependency is independently exploitable. Updating a dependency is not itself a vulnerability.
 - Denial-of-service, brute-force, or resource-exhaustion attacks absent a missing common defense.
 - Issues requiring physical or local access to a machine the user already controls.
 - Social engineering, phishing, or self-inflicted issues (e.g., self-XSS).
@@ -44,7 +44,7 @@ We consider an issue a vulnerability when it is a weakness in an in-scope, suppo
 
 ## Contacting Us
 
-All security reports and related correspondence must be submitted through [GAdvisory](https://postiz.gadvisory.org/request), our security advisory platform. The form routes four types of request:
+All security reports and related correspondence must be submitted through [GAdvisory](https://postea.gadvisory.org/request), our security advisory platform. The form routes four types of request:
 
 - **Report a vulnerability.** See [Reporting Security Vulnerabilities](#reporting-security-vulnerabilities).
 - **Dispute a CVE or Advisory.** Challenge the validity of a record we published. Disputes and their resolution are public and permanent. Our CVE Record Dispute Policy is linked from this flow.
@@ -57,7 +57,7 @@ Private vulnerability reporting on GitHub is disabled for our repositories. GitH
 
 ## Reporting Security Vulnerabilities
 
-If you discover a security vulnerability in the Postiz app, report it through [GAdvisory](https://postiz.gadvisory.org/request). Please provide as much detail as possible, including:
+If you discover a security vulnerability in the Postea app, report it through [GAdvisory](https://postea.gadvisory.org/request). Please provide as much detail as possible, including:
 
 - A clear description of the vulnerability
 - Proof of concept (PoC), where possible
@@ -97,10 +97,10 @@ For every report we investigate and verify the issue, develop a fix or mitigatio
 
 ## CVE Identifiers
 
-Postiz operates as a CVE Numbering Authority (CNA) for the products listed under [Scope](#scope). For any report confirmed to be an in-scope vulnerability, we manage the full CVE lifecycle:
+Postea operates as a CVE Numbering Authority (CNA) for the products listed under [Scope](#scope). For any report confirmed to be an in-scope vulnerability, we manage the full CVE lifecycle:
 
 - **Reservation:** We reserve a CVE ID once a report is confirmed as a genuine in-scope vulnerability. Reservation is internal; the ID is not published or otherwise exposed at this stage.
 - **Assignment to reporter:** We provide the reserved CVE ID to the reporter so it can be referenced during coordinated disclosure.
-- **Publication:** The CVE Record is published to the CVE List together with the public advisory at [postiz.gadvisory.org/advisories](https://postiz.gadvisory.org/advisories) and the fixed release, never before a fix or mitigation is available. We aim to publish within 24 hours of the remediation release.
+- **Publication:** The CVE Record is published to the CVE List together with the public advisory at [postea.gadvisory.org/advisories](https://postea.gadvisory.org/advisories) and the fixed release, never before a fix or mitigation is available. We aim to publish within 24 hours of the remediation release.
 
 CVE IDs are assigned only to vulnerabilities affecting currently supported versions (see [Supported Versions](#supported-versions)).

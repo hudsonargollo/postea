@@ -21,13 +21,13 @@ export const remoteMcpClients = {
 } as const;
 
 // Official one-click connectors listed in the assistants' directories, they
-// point at the public MCP server: the hosted Postiz (billingEnabled), or a
+// point at the public MCP server: the hosted Postea (billingEnabled), or a
 // self-hosted install through "Use self-hosted" on its sign-in page.
 export const mcpConnectorUrls = {
-  Claude: 'https://claude.ai/directory/postiz',
+  Claude: 'https://claude.ai/directory/postea',
   ChatGPT:
     'https://chatgpt.com/plugins/plugin_asdk_app_6aaaf1a529808191a2a15fde824bb013',
-  Cursor: 'https://cursor.com/marketplace/postiz',
+  Cursor: 'https://cursor.com/marketplace/postea',
   'Grok Bot': 'https://x.ai/bot/plugin/58737848',
 } as const;
 
@@ -35,7 +35,7 @@ export const mcpConnectorUrls = {
 // the agent installs the CLI itself and asks you for the API key
 export const chatOnlyMcpClients = {
   'Grok Bot':
-    'Install the Postiz CLI with `npm install -g postiz`, then install the Postiz skill with `npx skills add gitroomhq/postiz-agent`. Ask me for my Postiz API key and set it as the POSTIZ_API_KEY environment variable before using the CLI.',
+    'Install the Postea CLI with `npm install -g postea`, then install the Postea skill with `npx skills add hudsonargollo/postea-agent`. Ask me for my Postea API key and set it as the POSTEA_API_KEY environment variable before using the CLI.',
 } as const;
 
 export const mcpClients = [
@@ -57,7 +57,7 @@ export type ChatOnlyMcpClient = keyof typeof chatOnlyMcpClients;
 export type McpClient = (typeof mcpClients)[number];
 export type AnyMcpClient = RemoteMcpClient | ChatOnlyMcpClient | McpClient;
 
-// oauth: no API key, the client registers itself (DCR) and the user signs in to Postiz
+// oauth: no API key, the client registers itself (DCR) and the user signs in to Postea
 // apikey: the organization API key, as a Bearer header (or inside the URL for remote clients)
 export type McpAuth = 'oauth' | 'apikey';
 
@@ -112,62 +112,62 @@ export const getMcpConfig = (
     switch (client) {
       case 'Claude Code':
         return {
-          config: `claude mcp add postiz --transport http "${oauthUrl}"`,
+          config: `claude mcp add postea --transport http "${oauthUrl}"`,
           hint: 'Run this command in your terminal.',
         };
       case 'Cursor':
         return {
-          config: json({ mcpServers: { postiz: { url: oauthUrl } } }),
+          config: json({ mcpServers: { postea: { url: oauthUrl } } }),
           hint: 'Add to .cursor/mcp.json in your project root.',
         };
       case 'VS Code / Copilot':
         return {
           config: json({
-            servers: { postiz: { type: 'http', url: oauthUrl } },
+            servers: { postea: { type: 'http', url: oauthUrl } },
           }),
           hint: 'Add to .vscode/mcp.json in your project root.',
         };
       case 'Windsurf':
         return {
           config: json({
-            mcpServers: { postiz: { serverUrl: oauthUrl } },
+            mcpServers: { postea: { serverUrl: oauthUrl } },
           }),
           hint: 'Add to ~/.codeium/windsurf/mcp_config.json',
         };
       case 'Amp':
         return {
-          config: `amp mcp add postiz ${oauthUrl}`,
+          config: `amp mcp add postea ${oauthUrl}`,
           hint: 'Run this command in your terminal.',
         };
       case 'Codex':
         return {
-          config: `# ~/.codex/config.toml\n\n[mcp_servers.postiz]\nurl = "${oauthUrl}"`,
-          hint: 'Add to ~/.codex/config.toml, then run: codex mcp login postiz',
+          config: `# ~/.codex/config.toml\n\n[mcp_servers.postea]\nurl = "${oauthUrl}"`,
+          hint: 'Add to ~/.codex/config.toml, then run: codex mcp login postea',
         };
       case 'Gemini CLI':
         return {
-          config: json({ mcpServers: { postiz: { url: oauthUrl } } }),
+          config: json({ mcpServers: { postea: { url: oauthUrl } } }),
           hint: 'Add to ~/.gemini/settings.json',
         };
       case 'Warp':
         return {
-          config: json({ postiz: { url: oauthUrl } }),
+          config: json({ postea: { url: oauthUrl } }),
           hint: 'Settings > MCP Servers > + Add, then paste this config.',
         };
       case 'Hermes':
         return {
-          config: `# ~/.hermes/config.yaml\n\nmcp_servers:\n  postiz:\n    url: "${oauthUrl}"\n    auth: oauth`,
+          config: `# ~/.hermes/config.yaml\n\nmcp_servers:\n  postea:\n    url: "${oauthUrl}"\n    auth: oauth`,
           hint: 'Add to ~/.hermes/config.yaml, then run /reload-mcp in the chat.',
         };
       case 'OpenClaw':
         return {
-          config: `openclaw mcp add postiz --url ${oauthUrl} --transport streamable-http --auth oauth && openclaw mcp login postiz`,
+          config: `openclaw mcp add postea --url ${oauthUrl} --transport streamable-http --auth oauth && openclaw mcp login postea`,
           hint: 'Run this command in your terminal.',
         };
       case 'NanoClaw':
         return {
-          config: `ncl groups config add-mcp-server --id <group-id> --name postiz --url ${oauthUrl}`,
-          hint: 'Run this in your terminal, replace <group-id> with the agent group that should get Postiz.',
+          config: `ncl groups config add-mcp-server --id <group-id> --name postea --url ${oauthUrl}`,
+          hint: 'Run this in your terminal, replace <group-id> with the agent group that should get Postea.',
         };
     }
   }
@@ -175,14 +175,14 @@ export const getMcpConfig = (
   switch (client) {
     case 'Claude Code':
       return {
-        config: `claude mcp add --transport http postiz ${urlBase} --header "Authorization: ${bearer}"`,
+        config: `claude mcp add --transport http postea ${urlBase} --header "Authorization: ${bearer}"`,
         hint: 'Run this command in your terminal.',
       };
     case 'Cursor':
       return {
         config: json({
           mcpServers: {
-            postiz: { url: urlBase, headers: { Authorization: bearer } },
+            postea: { url: urlBase, headers: { Authorization: bearer } },
           },
         }),
         hint: 'Add to .cursor/mcp.json in your project root.',
@@ -191,7 +191,7 @@ export const getMcpConfig = (
       return {
         config: json({
           servers: {
-            postiz: {
+            postea: {
               type: 'http',
               url: urlBase,
               headers: { Authorization: bearer },
@@ -204,7 +204,7 @@ export const getMcpConfig = (
       return {
         config: json({
           mcpServers: {
-            postiz: {
+            postea: {
               serverUrl: urlBase,
               headers: { Authorization: bearer },
             },
@@ -216,21 +216,21 @@ export const getMcpConfig = (
       return {
         config: json({
           'amp.mcpServers': {
-            postiz: { url: urlBase, headers: { Authorization: bearer } },
+            postea: { url: urlBase, headers: { Authorization: bearer } },
           },
         }),
         hint: 'Add to your Amp settings.json',
       };
     case 'Codex':
       return {
-        config: `# ~/.codex/config.toml\n\n[mcp_servers.postiz]\nurl = "${urlBase}"\nhttp_headers = { "Authorization" = "${bearer}" }`,
+        config: `# ~/.codex/config.toml\n\n[mcp_servers.postea]\nurl = "${urlBase}"\nhttp_headers = { "Authorization" = "${bearer}" }`,
         hint: 'Add to ~/.codex/config.toml',
       };
     case 'Gemini CLI':
       return {
         config: json({
           mcpServers: {
-            postiz: { url: urlBase, headers: { Authorization: bearer } },
+            postea: { url: urlBase, headers: { Authorization: bearer } },
           },
         }),
         hint: 'Add to ~/.gemini/settings.json',
@@ -238,13 +238,13 @@ export const getMcpConfig = (
     case 'Warp':
       return {
         config: json({
-          postiz: { url: urlBase, headers: { Authorization: bearer } },
+          postea: { url: urlBase, headers: { Authorization: bearer } },
         }),
         hint: 'Settings > MCP Servers > + Add, then paste this config.',
       };
     case 'Hermes':
       return {
-        config: `# ~/.hermes/config.yaml\n\nmcp_servers:\n  postiz:\n    url: "${urlBase}"\n    headers:\n      Authorization: "${bearer}"`,
+        config: `# ~/.hermes/config.yaml\n\nmcp_servers:\n  postea:\n    url: "${urlBase}"\n    headers:\n      Authorization: "${bearer}"`,
         hint: 'Add to ~/.hermes/config.yaml, then run /reload-mcp in the chat.',
       };
     case 'OpenClaw':
@@ -252,7 +252,7 @@ export const getMcpConfig = (
         config: json({
           mcp: {
             servers: {
-              postiz: {
+              postea: {
                 url: urlBase,
                 transport: 'streamable-http',
                 headers: { Authorization: bearer },
@@ -265,8 +265,8 @@ export const getMcpConfig = (
     case 'NanoClaw':
       // No headers flag, the key travels inside the URL like remote clients
       return {
-        config: `ncl groups config add-mcp-server --id <group-id> --name postiz --url ${mcpBase}/mcp/${apiKey}`,
-        hint: 'Run this in your terminal, replace <group-id> with the agent group that should get Postiz.',
+        config: `ncl groups config add-mcp-server --id <group-id> --name postea --url ${mcpBase}/mcp/${apiKey}`,
+        hint: 'Run this in your terminal, replace <group-id> with the agent group that should get Postea.',
       };
   }
 };
@@ -353,8 +353,8 @@ const McpSection = ({
           </div>
           <div className="text-[13px] text-customColor18 mt-[2px]">
             {t(
-              'connect_your_mcp_client_to_postiz_to_schedule_your_posts_faster',
-              'Connect Postiz MCP server to your client (Http streaming) to schedule your posts faster.'
+              'connect_your_mcp_client_to_postea_to_schedule_your_posts_faster',
+              'Connect Postea MCP server to your client (Http streaming) to schedule your posts faster.'
             )}
           </div>
         </div>
@@ -381,7 +381,7 @@ const McpSection = ({
           )}
           <a
             className="cursor-pointer px-[16px] h-[36px] bg-[#612BD3] hover:bg-[#5520CB] text-white transition-colors rounded-[8px] text-[13px] font-[600] flex items-center gap-[6px]"
-            href="https://docs.postiz.com/mcp/introduction"
+            href="https://docs.postea.com/mcp/introduction"
             target="_blank"
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
@@ -411,7 +411,7 @@ const McpSection = ({
                   {m === 'official'
                     ? t('official_connector', 'Official connector')
                     : m === 'oauth'
-                    ? t('sign_in_no_api_key', 'Sign in with Postiz (no API key)')
+                    ? t('sign_in_no_api_key', 'Sign in with Postea (no API key)')
                     : t('api_key', 'API Key')}
                 </button>
               ))}
@@ -424,12 +424,12 @@ const McpSection = ({
               {isSelfHosted
                 ? t(
                     'connector_self_hosted_description',
-                    'The official connector works with self-hosted Postiz too. When asked to sign in, choose "Use self-hosted" and enter {{url}} with your API key.',
+                    'The official connector works with self-hosted Postea too. When asked to sign in, choose "Use self-hosted" and enter {{url}} with your API key.',
                     { url: mcpBase, interpolation: { escapeValue: false } }
                   )
                 : t(
                     'connector_onboarding_description',
-                    'The fastest way: add Postiz with one click, you will be asked to sign in'
+                    'The fastest way: add Postea with one click, you will be asked to sign in'
                   )}
             </div>
             <div className="flex flex-wrap gap-[8px]">
@@ -490,7 +490,7 @@ const McpSection = ({
               !chatOnly &&
               ` ${t(
                 'oauth_sign_in_hint',
-                'Your agent will open a browser window to sign in to Postiz.'
+                'Your agent will open a browser window to sign in to Postea.'
               )}`}
           </div>
           <pre className="bg-newBgColorInner border border-newBorder rounded-[8px] p-[16px] text-[13px] whitespace-pre-wrap break-all overflow-x-auto leading-[1.6]">
@@ -575,30 +575,30 @@ const McpSection = ({
 export const localCliSteps = [
   {
     label: 'Install the CLI',
-    code: 'npm install -g postiz',
+    code: 'npm install -g postea',
   },
   {
-    label: 'Run: postiz auth:login',
-    code: 'postiz auth:login',
+    label: 'Run: postea auth:login',
+    code: 'postea auth:login',
   },
   {
-    label: 'Install the Postiz skill for your AI agent',
-    code: 'npx skills add gitroomhq/postiz-agent',
+    label: 'Install the Postea skill for your AI agent',
+    code: 'npx skills add hudsonargollo/postea-agent',
   },
 ] as const;
 
 const ciCliSteps = [
   {
     label: 'Install the CLI',
-    code: 'npm install -g postiz',
+    code: 'npm install -g postea',
   },
   {
     label: 'Set your API key as an environment variable',
-    code: 'export POSTIZ_API_KEY="{API_KEY}"',
+    code: 'export POSTEA_API_KEY="{API_KEY}"',
   },
   {
-    label: 'Install the Postiz skill for your AI agent',
-    code: 'npx skills add gitroomhq/postiz-agent',
+    label: 'Install the Postea skill for your AI agent',
+    code: 'npx skills add hudsonargollo/postea-agent',
   },
 ] as const;
 
@@ -636,14 +636,14 @@ const CliSection = ({ apiKey }: { apiKey: string }) => {
           <div className="text-[13px] text-customColor18 mt-[2px]">
             {t(
               'cli_description',
-              'Use the Postiz CLI to automate posting from your terminal, or install the skill to let your AI agent schedule posts for you.'
+              'Use the Postea CLI to automate posting from your terminal, or install the skill to let your AI agent schedule posts for you.'
             )}
           </div>
         </div>
         <div className="flex flex-wrap gap-[6px] shrink-0 pt-[2px]">
           <a
             className="cursor-pointer px-[16px] h-[36px] bg-[#612BD3] hover:bg-[#5520CB] text-white transition-colors rounded-[8px] text-[13px] font-[600] flex items-center gap-[6px]"
-            href="https://docs.postiz.com/cli/introduction"
+            href="https://docs.postea.com/cli/introduction"
             target="_blank"
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
@@ -770,7 +770,7 @@ const PublicApiContent = () => {
         <br />
         {t(
           'api_auth_note_line2',
-          'If you are building a product that schedules posts on behalf of other Postiz users,'
+          'If you are building a product that schedules posts on behalf of other Postea users,'
         )}
         <br />
         {t(
@@ -791,15 +791,15 @@ const PublicApiContent = () => {
             </div>
             <div className="text-[13px] text-customColor18 mt-[2px]">
               {t(
-                'use_postiz_api_to_integrate_with_your_tools',
-                'Use Postiz API to integrate with your tools.'
+                'use_postea_api_to_integrate_with_your_tools',
+                'Use Postea API to integrate with your tools.'
               )}
             </div>
           </div>
           <div className="flex flex-wrap gap-[6px] shrink-0 pt-[2px]">
             <a
               className="cursor-pointer px-[16px] h-[36px] bg-[#612BD3] hover:bg-[#5520CB] text-white transition-colors rounded-[8px] text-[13px] font-[600] flex items-center gap-[6px]"
-              href="https://docs.postiz.com/public-api"
+              href="https://docs.postea.com/public-api"
               target="_blank"
             >
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
@@ -807,7 +807,7 @@ const PublicApiContent = () => {
             </a>
             <a
               className="cursor-pointer px-[16px] h-[36px] bg-[#612BD3] hover:bg-[#5520CB] text-white transition-colors rounded-[8px] text-[13px] font-[600] flex items-center gap-[6px]"
-              href="https://www.npmjs.com/package/n8n-nodes-postiz"
+              href="https://www.npmjs.com/package/n8n-nodes-postea"
               target="_blank"
             >
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
